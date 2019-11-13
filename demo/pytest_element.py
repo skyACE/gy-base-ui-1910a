@@ -1,4 +1,6 @@
 from time import sleep
+
+import autoit
 import pytest
 from selenium import webdriver
 from selenium.webdriver import ActionChains
@@ -66,16 +68,65 @@ def test_slider(driver):
     driver.get('http://ui.yansl.com/#/slider')
     sleep(2)
     # 定位下拉框
-    slider = driver.find_element_by_xpath("//*[@id='form']/form/div[5]/div/div/div/div[2]/div")
+    slider = driver.find_element_by_xpath("(//div[@class='el-tooltip el-slider__button'])[6]")
     # 点击拖拽功能的
     actions =ActionChains(driver)
     actions.drag_and_drop_by_offset(slider,0,-200).perform()
     sleep(2)
 
 
+def test_time(driver):
+    driver.get('http://ui.yansl.com/#/dateTime')
+    sleep(2)
+    # 定义按键位置
+    t1 = driver.find_element_by_xpath("//*[@id='form']/form/div[1]/div[2]/div/div/input")
+    # 点击
+    t1.clear()
+    # 输入内容时间
+    t1.send_keys("10:50:20")
+    sleep(2)
+
+
+def test_file(driver):
+    driver.get('http://ui.yansl.com/#/upload')
+    sleep(2)
+    # 定义按键位置
+    file = driver.find_element_by_xpath("//input[@type='file']")
+    # 点击
+    file.clear()
+    # 输入文件路径
+    file.send_keys("C:\\Users\\guoya\\Desktop\\mall-admin-2019-10-31.log")
+    sleep(2)
+
+def test_file1(driver):
+    driver.get('http://ui.yansl.com/#/upload')
+    sleep(2)
+    # 定义按键位置
+    file1 = driver.find_element_by_xpath("//*[@id='form']/form/div[2]/div/div/div[1]/button/span")
+    file1.click()
+    sleep(2)
+    autoit.win_wait("打开", 10)
+    sleep(1)
+    # file.control_send("打开", "Edit1", os.path.abspath(file_path))
+    autoit.control_set_text("打开", "Edit1", "‪C:\\Users\\guoya\\Desktop\\美女.jpg")
+    sleep(2)
+    autoit.control_click("打开", "Button1")
+
+    sleep(3)
 
 
 
+def test_button(driver):
+    driver.get('http://192.168.1.128:8082/xuepl/demo.html')
+    sleep(2)
+
+    button = driver.find_element_by_xpath("/html/body/table/tbody/tr[6]/td[2]/input")
+    button.click()
+    sleep(2)
+    alert = driver.switch_to.alert
+    alert.send_keys("saasd")
+    alert.accept()
+    sleep(2)
 
 
 
