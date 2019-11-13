@@ -67,7 +67,7 @@ def test_slider(driver):
     sleep(2)
     # 定位下拉框
     slider = driver.find_element_by_xpath("//*[@id='form']/form/div[5]/div/div/div/div[2]/div")
-    #
+    # 点击拖拽功能的
     actions =ActionChains(driver)
     actions.drag_and_drop_by_offset(slider,0,-200).perform()
     sleep(2)
