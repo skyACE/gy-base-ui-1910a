@@ -4,6 +4,7 @@ import autoit
 import pytest
 from selenium import webdriver
 from selenium.webdriver import ActionChains
+from selenium.webdriver.common.keys import Keys
 
 
 def test_input(driver):
@@ -125,8 +126,37 @@ def test_button(driver):
     sleep(2)
     alert = driver.switch_to.alert
     alert.send_keys("saasd")
-    alert.accept()
+    alert.dismiss()
+    # alert.accept()
     sleep(2)
+
+def test_windows(driver):
+    driver.get('http://192.168.1.128:8082/xuepl/demo.html')
+    sleep(2)
+
+    dang_dang = driver.find_element_by_link_text("当当")
+    actions = ActionChains(driver)
+    actions.key_down(Keys.CONTROL).click(dang_dang).key_up(Keys.CONTROL).perform()
+    sleep(2)
+
+    jd = driver.find_element_by_link_text("京东")
+    actions = ActionChains(driver)
+    actions.key_down(Keys.CONTROL).click(jd).key_up(Keys.CONTROL).perform()
+    sleep(2)
+
+    dn = driver.find_element_by_partial_link_text("度娘")
+    actions = ActionChains(driver)
+    actions.key_down(Keys.CONTROL).click(dn).key_up(Keys.CONTROL).perform()
+    sleep(2)
+
+    handles = driver.window_handles
+    for h in handles:
+        #根据窗口句柄，切换窗口
+        driver.switch_to.window(h)
+        sleep(2)
+        if driver.title.__contains__("京东"):
+            break
+
 
 
 
