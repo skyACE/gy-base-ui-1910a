@@ -133,12 +133,14 @@ def test_button(driver):
 def test_windows(driver):
     driver.get('http://192.168.1.128:8082/xuepl/demo.html')
     sleep(2)
-
+    # 定义查找到"当当"链接
     dang_dang = driver.find_element_by_link_text("当当")
-    actions = ActionChains(driver)
+    actions = ActionChains(driver)   # 定义变量actions  使用ActionChains()函数 --组合指令
+    #  actions，导包（Keys） 使用按下Keys.CONTROL 加点击dang_dang  放下CONTROL键  执行组合命令
     actions.key_down(Keys.CONTROL).click(dang_dang).key_up(Keys.CONTROL).perform()
-    sleep(2)
+    sleep(2)  #停留2秒
 
+    # 定义查找到"京东"链接
     jd = driver.find_element_by_link_text("京东")
     actions = ActionChains(driver)
     actions.key_down(Keys.CONTROL).click(jd).key_up(Keys.CONTROL).perform()
