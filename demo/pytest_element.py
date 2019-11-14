@@ -4,7 +4,10 @@ import autoit
 import pytest
 from selenium import webdriver
 from selenium.webdriver import ActionChains
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 def test_input(driver):
@@ -164,29 +167,53 @@ def test_windows(driver):
 
 def test_frame(driver):
     driver.get('http://192.168.1.128:8082/xuepl1/frame/main.html')
-    sleep(2)
+
 
     frame = driver.find_element_by_xpath("/html/frameset/frameset/frame[1]")
     driver.switch_to.frame(frame)
-    sleep(2)
+
     # 点击“京东”超链接
     driver.find_element_by_link_text("京东").click()
-    sleep(2)
+
     #退回当前iframe
     driver.switch_to.parent_frame()
     #回到初始页面
     # driver.switch_to.default_content()
-    sleep(2)
+
     iframe = driver.find_element_by_xpath("/html/frameset/frameset/frame[2]")
     #切换到该页面
     driver.switch_to.frame(iframe)
-    sleep(2)
+
     #定位输入框
     inpu =driver.find_element_by_xpath("//*[@id='key']")
     inpu.clear()
     #输入“手机”字符串
     inpu.send_keys("手机")
     sleep(2)
+
+
+
+def test_wait(driver):
+    driver.get("http://ui.yansl.com/#/loading")
+    bt = driver.find_element_by_xpath("//span[contains(text(),'指令方式')]")
+    bt.click()
+    WebDriverWait(driver,5,0.5).until(
+        EC.presence_of_element_located((By.XPATH,'//tbody/tr[1]/td[2]/div'))
+    )
+    bg = driver.find_element_by_xpath("//tbody/tr[1]/td[2]/div")
+    print(bg.text)
+    sleep(2)
+
+
+
+
+
+
+
+
+
+
+
 
 
 

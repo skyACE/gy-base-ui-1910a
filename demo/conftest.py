@@ -10,6 +10,8 @@ def driver():
     driver = webdriver.Chrome('../chrome_driver_v78/chromedriver.exe')
     #窗口最大化
     driver.maximize_window()
+    driver.implicitly_wait(5)  #  隐视等待设置等待时间长5秒
+
     #追加执行
     yield driver
     #退出driver
