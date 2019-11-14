@@ -1,38 +1,22 @@
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+import os
 from time import sleep
 
 import pytest
 from selenium import webdriver
 
 
+
+
+
 @pytest.fixture(scope='session')
 def driver():
-    #定义启动项 “webdriver ”和启动路径（..）
-    driver = webdriver.Chrome('../chrome_driver_v78/chromedriver.exe')
-    #窗口最大化
+    # 打开浏览器
+    driver = webdriver.Chrome(os.path.join(os.path.dirname(os.path.abspath(__file__)),'../chrome_driver_v78/chromedriver.exe'))
+    # 调整浏览器窗口大小
     driver.maximize_window()
-    driver.implicitly_wait(5)  #  隐视等待设置等待时间长5秒
-
-    #追加执行
+    driver.implicitly_wait(10) # 设置等待时长5秒
+    # 浏览器全局设置，一般在浏览器启动之后设置一次，终生有效
     yield driver
-    #退出driver
     driver.quit()
-
-    #
-    # #打开网址
-    # driver.get("http://www.baidu.com")
-    # sleep(1)
-    # driver.get("https://www.runoob.com/")
-    # sleep(1)
-    # # 后退
-    #
-    # driver.back()
-    # sleep(1)
-    #
-    # # 前进
-    # driver.forward()
-    # sleep(1)
-    #
-    # # 刷新
-    # driver.refresh()
-    # sleep(1)
-
