@@ -162,9 +162,31 @@ def test_windows(driver):
 
 
 
+def test_frame(driver):
+    driver.get('http://192.168.1.128:8082/xuepl1/frame/main.html')
+    sleep(2)
 
-
-
+    frame = driver.find_element_by_xpath("/html/frameset/frameset/frame[1]")
+    driver.switch_to.frame(frame)
+    sleep(2)
+    # 点击“京东”超链接
+    driver.find_element_by_link_text("京东").click()
+    sleep(2)
+    #退回当前iframe
+    driver.switch_to.parent_frame()
+    #回到初始页面
+    # driver.switch_to.default_content()
+    sleep(2)
+    iframe = driver.find_element_by_xpath("/html/frameset/frameset/frame[2]")
+    #切换到该页面
+    driver.switch_to.frame(iframe)
+    sleep(2)
+    #定位输入框
+    inpu =driver.find_element_by_xpath("//*[@id='key']")
+    inpu.clear()
+    #输入“手机”字符串
+    inpu.send_keys("手机")
+    sleep(2)
 
 
 
